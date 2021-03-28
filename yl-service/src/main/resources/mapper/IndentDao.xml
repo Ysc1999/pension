@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.graduation.ylservice.dao.IndentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.graduation.ylservice.entity.IndentEntity" id="indentMap">
+        <result property="indentId" column="indent_id"/>
+        <result property="inUserId" column="in_user_id"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="inUserName" column="in_user_name"/>
+        <result property="inUserAddress" column="in_user_address"/>
+        <result property="inUserPhone" column="in_user_phone"/>
+        <result property="total" column="total"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="arrayTime" column="array_time"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+    </resultMap>
+
+
+</mapper>

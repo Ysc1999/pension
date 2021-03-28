@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.graduation.ylservice.dao.DishDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.graduation.ylservice.entity.DishEntity" id="dishMap">
+        <result property="dishId" column="dish_id"/>
+        <result property="dishKindName" column="dish_kind_name"/>
+        <result property="dishName" column="dish_name"/>
+        <result property="dishPrice" column="dish_price"/>
+        <result property="dishPicture" column="dish_picture"/>
+        <result property="description" column="description"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+    </resultMap>
+
+
+</mapper>
