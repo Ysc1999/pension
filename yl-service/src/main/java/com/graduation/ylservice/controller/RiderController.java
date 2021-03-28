@@ -16,15 +16,16 @@ import com.graduation.ylservice.utils.PageUtils;
 import com.graduation.ylservice.utils.R;
 
 
+
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/rider")
+@RequestMapping("ylservice/rider")
 public class RiderController {
     @Autowired
     private RiderService riderService;
@@ -33,7 +34,7 @@ public class RiderController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":rider:list")
+    //@RequiresPermissions("ylservice:rider:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = riderService.queryPage(params);
 
@@ -45,7 +46,7 @@ public class RiderController {
      * 信息
      */
     @RequestMapping("/info/{pkRiderId}")
-    //@RequiresPermissions(":rider:info")
+    //@RequiresPermissions("ylservice:rider:info")
     public R info(@PathVariable("pkRiderId") String pkRiderId){
 		RiderEntity rider = riderService.getById(pkRiderId);
 
@@ -56,7 +57,7 @@ public class RiderController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":rider:save")
+    //@RequiresPermissions("ylservice:rider:save")
     public R save(@RequestBody RiderEntity rider){
 		riderService.save(rider);
 
@@ -67,7 +68,7 @@ public class RiderController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":rider:update")
+    //@RequiresPermissions("ylservice:rider:update")
     public R update(@RequestBody RiderEntity rider){
 		riderService.updateById(rider);
 
@@ -78,7 +79,7 @@ public class RiderController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":rider:delete")
+    //@RequiresPermissions("ylservice:rider:delete")
     public R delete(@RequestBody String[] pkRiderIds){
 		riderService.removeByIds(Arrays.asList(pkRiderIds));
 

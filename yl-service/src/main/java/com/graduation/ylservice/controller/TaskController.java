@@ -20,12 +20,12 @@ import com.graduation.ylservice.utils.R;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/task")
+@RequestMapping("ylservice/task")
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -34,7 +34,7 @@ public class TaskController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":task:list")
+    //@RequiresPermissions("ylservice:task:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = taskService.queryPage(params);
 
@@ -46,7 +46,7 @@ public class TaskController {
      * 信息
      */
     @RequestMapping("/info/{pkTaskId}")
-    //@RequiresPermissions(":task:info")
+    //@RequiresPermissions("ylservice:task:info")
     public R info(@PathVariable("pkTaskId") String pkTaskId){
 		TaskEntity task = taskService.getById(pkTaskId);
 
@@ -57,7 +57,7 @@ public class TaskController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":task:save")
+    //@RequiresPermissions("ylservice:task:save")
     public R save(@RequestBody TaskEntity task){
 		taskService.save(task);
 
@@ -68,7 +68,7 @@ public class TaskController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":task:update")
+    //@RequiresPermissions("ylservice:task:update")
     public R update(@RequestBody TaskEntity task){
 		taskService.updateById(task);
 
@@ -79,7 +79,7 @@ public class TaskController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":task:delete")
+    //@RequiresPermissions("ylservice:task:delete")
     public R delete(@RequestBody String[] pkTaskIds){
 		taskService.removeByIds(Arrays.asList(pkTaskIds));
 

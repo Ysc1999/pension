@@ -20,12 +20,12 @@ import com.graduation.ylservice.utils.R;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("ylservice/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -34,7 +34,7 @@ public class UserController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":user:list")
+    //@RequiresPermissions("ylservice:user:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = userService.queryPage(params);
 
@@ -46,7 +46,7 @@ public class UserController {
      * 信息
      */
     @RequestMapping("/info/{userId}")
-    //@RequiresPermissions(":user:info")
+    //@RequiresPermissions("ylservice:user:info")
     public R info(@PathVariable("userId") String userId){
 		UserEntity user = userService.getById(userId);
 
@@ -57,7 +57,7 @@ public class UserController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":user:save")
+    //@RequiresPermissions("ylservice:user:save")
     public R save(@RequestBody UserEntity user){
 		userService.save(user);
 
@@ -68,7 +68,7 @@ public class UserController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":user:update")
+    //@RequiresPermissions("ylservice:user:update")
     public R update(@RequestBody UserEntity user){
 		userService.updateById(user);
 
@@ -79,7 +79,7 @@ public class UserController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":user:delete")
+    //@RequiresPermissions("ylservice:user:delete")
     public R delete(@RequestBody String[] userIds){
 		userService.removeByIds(Arrays.asList(userIds));
 

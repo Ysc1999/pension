@@ -20,12 +20,12 @@ import com.graduation.ylservice.utils.R;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/salestatus")
+@RequestMapping("ylservice/salestatus")
 public class SaleStatusController {
     @Autowired
     private SaleStatusService saleStatusService;
@@ -34,7 +34,7 @@ public class SaleStatusController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":salestatus:list")
+    //@RequiresPermissions("ylservice:salestatus:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = saleStatusService.queryPage(params);
 
@@ -45,10 +45,10 @@ public class SaleStatusController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{saleDishId}")
-    //@RequiresPermissions(":salestatus:info")
-    public R info(@PathVariable("saleDishId") String saleDishId){
-		SaleStatusEntity saleStatus = saleStatusService.getById(saleDishId);
+    @RequestMapping("/info/{saleStatusId}")
+    //@RequiresPermissions("ylservice:salestatus:info")
+    public R info(@PathVariable("saleStatusId") String saleStatusId){
+		SaleStatusEntity saleStatus = saleStatusService.getById(saleStatusId);
 
         return R.ok().put("saleStatus", saleStatus);
     }
@@ -57,7 +57,7 @@ public class SaleStatusController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":salestatus:save")
+    //@RequiresPermissions("ylservice:salestatus:save")
     public R save(@RequestBody SaleStatusEntity saleStatus){
 		saleStatusService.save(saleStatus);
 
@@ -68,7 +68,7 @@ public class SaleStatusController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":salestatus:update")
+    //@RequiresPermissions("ylservice:salestatus:update")
     public R update(@RequestBody SaleStatusEntity saleStatus){
 		saleStatusService.updateById(saleStatus);
 
@@ -79,9 +79,9 @@ public class SaleStatusController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":salestatus:delete")
-    public R delete(@RequestBody String[] saleDishIds){
-		saleStatusService.removeByIds(Arrays.asList(saleDishIds));
+    //@RequiresPermissions("ylservice:salestatus:delete")
+    public R delete(@RequestBody String[] saleStatusIds){
+		saleStatusService.removeByIds(Arrays.asList(saleStatusIds));
 
         return R.ok();
     }

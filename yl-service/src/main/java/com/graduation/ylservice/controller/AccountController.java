@@ -5,8 +5,6 @@ import java.util.Map;
 
 import com.graduation.ylservice.utils.PageUtils;
 import com.graduation.ylservice.utils.R;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,13 +20,12 @@ import com.graduation.ylservice.service.AccountService;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
-@Api("账户余额")
 @RestController
-@RequestMapping("/account")
+@RequestMapping("ylservice/account")
 public class AccountController {
     @Autowired
     private AccountService accountService;
@@ -36,9 +33,8 @@ public class AccountController {
     /**
      * 列表
      */
-    @ApiOperation("列表")
     @RequestMapping("/list")
-    //@RequiresPermissions(":account:list")
+    //@RequiresPermissions("ylservice:account:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = accountService.queryPage(params);
 
@@ -50,7 +46,7 @@ public class AccountController {
      * 信息
      */
     @RequestMapping("/info/{accountId}")
-    //@RequiresPermissions(":account:info")
+    //@RequiresPermissions("ylservice:account:info")
     public R info(@PathVariable("accountId") String accountId){
 		AccountEntity account = accountService.getById(accountId);
 
@@ -61,7 +57,7 @@ public class AccountController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":account:save")
+    //@RequiresPermissions("ylservice:account:save")
     public R save(@RequestBody AccountEntity account){
 		accountService.save(account);
 
@@ -72,7 +68,7 @@ public class AccountController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":account:update")
+    //@RequiresPermissions("ylservice:account:update")
     public R update(@RequestBody AccountEntity account){
 		accountService.updateById(account);
 
@@ -83,7 +79,7 @@ public class AccountController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":account:delete")
+    //@RequiresPermissions("ylservice:account:delete")
     public R delete(@RequestBody String[] accountIds){
 		accountService.removeByIds(Arrays.asList(accountIds));
 

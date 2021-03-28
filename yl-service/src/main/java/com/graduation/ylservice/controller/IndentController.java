@@ -20,12 +20,12 @@ import com.graduation.ylservice.utils.R;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/indent")
+@RequestMapping("ylservice/indent")
 public class IndentController {
     @Autowired
     private IndentService indentService;
@@ -34,7 +34,7 @@ public class IndentController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":indent:list")
+    //@RequiresPermissions("ylservice:indent:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = indentService.queryPage(params);
 
@@ -46,7 +46,7 @@ public class IndentController {
      * 信息
      */
     @RequestMapping("/info/{indentId}")
-    //@RequiresPermissions(":indent:info")
+    //@RequiresPermissions("ylservice:indent:info")
     public R info(@PathVariable("indentId") String indentId){
 		IndentEntity indent = indentService.getById(indentId);
 
@@ -57,7 +57,7 @@ public class IndentController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":indent:save")
+    //@RequiresPermissions("ylservice:indent:save")
     public R save(@RequestBody IndentEntity indent){
 		indentService.save(indent);
 
@@ -68,7 +68,7 @@ public class IndentController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":indent:update")
+    //@RequiresPermissions("ylservice:indent:update")
     public R update(@RequestBody IndentEntity indent){
 		indentService.updateById(indent);
 
@@ -79,7 +79,7 @@ public class IndentController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":indent:delete")
+    //@RequiresPermissions("ylservice:indent:delete")
     public R delete(@RequestBody String[] indentIds){
 		indentService.removeByIds(Arrays.asList(indentIds));
 

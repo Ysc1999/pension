@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50629
 File Encoding         : 65001
 
-Date: 2021-03-28 10:42:44
+Date: 2021-03-28 19:39:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,8 +26,8 @@ CREATE TABLE `account` (
   `is_delete` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`account_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of account
@@ -47,8 +47,10 @@ CREATE TABLE `dish` (
   `is_delete` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '变更时间',
-  PRIMARY KEY (`dish_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `dish_sale_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜品售出状态',
+  `dish_status` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '菜品上架状态',
+  PRIMARY KEY (`dish_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of dish
@@ -64,8 +66,8 @@ CREATE TABLE `dish_kind` (
   `is_delete` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`kind_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`kind_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of dish_kind
@@ -76,18 +78,17 @@ CREATE TABLE `dish_kind` (
 -- ----------------------------
 DROP TABLE IF EXISTS `dish_status`;
 CREATE TABLE `dish_status` (
-  `st_dish_id` char(19) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜品ID',
-  `dish_status` tinyint(1) NOT NULL COMMENT '菜品状态（0下架，1上架）',
+  `st_dish_id` char(19) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜品上架状态id',
+  `dish_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜品状态（0下架，1上架）',
   `is_delete` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '变更时间',
-  PRIMARY KEY (`st_dish_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`st_dish_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of dish_status
 -- ----------------------------
-INSERT INTO `dish_status` VALUES ('1000000000000000000', '1', '1', '2021-03-03 23:30:19', '2021-03-09 23:30:23');
 
 -- ----------------------------
 -- Table structure for `indent`
@@ -106,8 +107,9 @@ CREATE TABLE `indent` (
   `array_time` datetime DEFAULT NULL COMMENT '到货时间',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '变更时间',
-  PRIMARY KEY (`indent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `is_payed` tinyint(1) NOT NULL COMMENT '是否支付',
+  PRIMARY KEY (`indent_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of indent
@@ -124,7 +126,7 @@ CREATE TABLE `indent_detail` (
   `is_delete` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '变更时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of indent_detail
@@ -144,8 +146,8 @@ CREATE TABLE `rider` (
   `DELETE_FLAG` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `GMT_CREATE` datetime NOT NULL COMMENT '创建时间',
   `GMT_MODIFIED` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`PK_RIDER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`PK_RIDER_ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of rider
@@ -156,13 +158,13 @@ CREATE TABLE `rider` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sale_status`;
 CREATE TABLE `sale_status` (
-  `sale_dish_id` char(19) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜品ID',
-  `sale_status` tinyint(1) NOT NULL COMMENT '菜品状态（0售完，1未售完）',
+  `sale_status_id` char(19) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜品售出状态主键，唯一标识',
   `is_delete` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '变更时间',
-  PRIMARY KEY (`sale_dish_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `sale_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜品售出状态（0售完，1未售完）',
+  PRIMARY KEY (`sale_status_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sale_status
@@ -188,8 +190,8 @@ CREATE TABLE `task` (
   `DELETE_FLAG` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `GMT_CREATE` datetime NOT NULL COMMENT '创建时间',
   `GMT_MODIFIED` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`PK_TASK_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`PK_TASK_ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of task
@@ -210,8 +212,8 @@ CREATE TABLE `user` (
   `is_delete` tinyint(1) NOT NULL COMMENT '逻辑删除，1删除，0未删除',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user

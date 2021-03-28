@@ -20,12 +20,12 @@ import com.graduation.ylservice.utils.R;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/dishkind")
+@RequestMapping("ylservice/dishkind")
 public class DishKindController {
     @Autowired
     private DishKindService dishKindService;
@@ -34,7 +34,7 @@ public class DishKindController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":dishkind:list")
+    //@RequiresPermissions("ylservice:dishkind:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = dishKindService.queryPage(params);
 
@@ -46,7 +46,7 @@ public class DishKindController {
      * 信息
      */
     @RequestMapping("/info/{kindId}")
-    //@RequiresPermissions(":dishkind:info")
+    //@RequiresPermissions("ylservice:dishkind:info")
     public R info(@PathVariable("kindId") String kindId){
 		DishKindEntity dishKind = dishKindService.getById(kindId);
 
@@ -57,7 +57,7 @@ public class DishKindController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":dishkind:save")
+    //@RequiresPermissions("ylservice:dishkind:save")
     public R save(@RequestBody DishKindEntity dishKind){
 		dishKindService.save(dishKind);
 
@@ -68,7 +68,7 @@ public class DishKindController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":dishkind:update")
+    //@RequiresPermissions("ylservice:dishkind:update")
     public R update(@RequestBody DishKindEntity dishKind){
 		dishKindService.updateById(dishKind);
 
@@ -79,7 +79,7 @@ public class DishKindController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":dishkind:delete")
+    //@RequiresPermissions("ylservice:dishkind:delete")
     public R delete(@RequestBody String[] kindIds){
 		dishKindService.removeByIds(Arrays.asList(kindIds));
 

@@ -20,12 +20,12 @@ import com.graduation.ylservice.utils.R;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/dishstatus")
+@RequestMapping("ylservice/dishstatus")
 public class DishStatusController {
     @Autowired
     private DishStatusService dishStatusService;
@@ -34,7 +34,7 @@ public class DishStatusController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":dishstatus:list")
+    //@RequiresPermissions("ylservice:dishstatus:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = dishStatusService.queryPage(params);
 
@@ -46,7 +46,7 @@ public class DishStatusController {
      * 信息
      */
     @RequestMapping("/info/{stDishId}")
-    //@RequiresPermissions(":dishstatus:info")
+    //@RequiresPermissions("ylservice:dishstatus:info")
     public R info(@PathVariable("stDishId") String stDishId){
 		DishStatusEntity dishStatus = dishStatusService.getById(stDishId);
 
@@ -57,7 +57,7 @@ public class DishStatusController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":dishstatus:save")
+    //@RequiresPermissions("ylservice:dishstatus:save")
     public R save(@RequestBody DishStatusEntity dishStatus){
 		dishStatusService.save(dishStatus);
 
@@ -68,7 +68,7 @@ public class DishStatusController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":dishstatus:update")
+    //@RequiresPermissions("ylservice:dishstatus:update")
     public R update(@RequestBody DishStatusEntity dishStatus){
 		dishStatusService.updateById(dishStatus);
 
@@ -79,7 +79,7 @@ public class DishStatusController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":dishstatus:delete")
+    //@RequiresPermissions("ylservice:dishstatus:delete")
     public R delete(@RequestBody String[] stDishIds){
 		dishStatusService.removeByIds(Arrays.asList(stDishIds));
 

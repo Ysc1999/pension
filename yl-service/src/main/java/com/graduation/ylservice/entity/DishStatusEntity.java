@@ -10,9 +10,9 @@ import lombok.Data;
 /**
  * 
  * 
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @Data
 @TableName("dish_status")
@@ -20,14 +20,14 @@ public class DishStatusEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 菜品ID
+	 * 菜品上架状态id
 	 */
 	@TableId
 	private String stDishId;
 	/**
 	 * 菜品状态（0下架，1上架）
 	 */
-	private Integer dishStatus;
+	private String dishStatus;
 	/**
 	 * 逻辑删除，1删除，0未删除
 	 */

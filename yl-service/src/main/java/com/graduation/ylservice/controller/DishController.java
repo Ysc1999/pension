@@ -3,6 +3,7 @@ package com.graduation.ylservice.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,16 +17,15 @@ import com.graduation.ylservice.utils.PageUtils;
 import com.graduation.ylservice.utils.R;
 
 
-
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/dish")
+@RequestMapping("ylservice/dish")
 public class DishController {
     @Autowired
     private DishService dishService;
@@ -34,7 +34,7 @@ public class DishController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":dish:list")
+    //@RequiresPermissions("ylservice:dish:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = dishService.queryPage(params);
 
@@ -46,7 +46,7 @@ public class DishController {
      * 信息
      */
     @RequestMapping("/info/{dishId}")
-    //@RequiresPermissions(":dish:info")
+    //@RequiresPermissions("ylservice:dish:info")
     public R info(@PathVariable("dishId") String dishId){
 		DishEntity dish = dishService.getById(dishId);
 
@@ -57,7 +57,7 @@ public class DishController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":dish:save")
+    //@RequiresPermissions("ylservice:dish:save")
     public R save(@RequestBody DishEntity dish){
 		dishService.save(dish);
 
@@ -68,7 +68,7 @@ public class DishController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":dish:update")
+    //@RequiresPermissions("ylservice:dish:update")
     public R update(@RequestBody DishEntity dish){
 		dishService.updateById(dish);
 
@@ -79,7 +79,7 @@ public class DishController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":dish:delete")
+    //@RequiresPermissions("ylservice:dish:delete")
     public R delete(@RequestBody String[] dishIds){
 		dishService.removeByIds(Arrays.asList(dishIds));
 

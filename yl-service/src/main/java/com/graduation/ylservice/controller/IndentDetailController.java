@@ -20,12 +20,12 @@ import com.graduation.ylservice.utils.R;
 /**
  * 
  *
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @RestController
-@RequestMapping("/indentdetail")
+@RequestMapping("ylservice/indentdetail")
 public class IndentDetailController {
     @Autowired
     private IndentDetailService indentDetailService;
@@ -34,7 +34,7 @@ public class IndentDetailController {
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions(":indentdetail:list")
+    //@RequiresPermissions("ylservice:indentdetail:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = indentDetailService.queryPage(params);
 
@@ -46,7 +46,7 @@ public class IndentDetailController {
      * 信息
      */
     @RequestMapping("/info/{deIndentId}")
-    //@RequiresPermissions(":indentdetail:info")
+    //@RequiresPermissions("ylservice:indentdetail:info")
     public R info(@PathVariable("deIndentId") String deIndentId){
 		IndentDetailEntity indentDetail = indentDetailService.getById(deIndentId);
 
@@ -57,7 +57,7 @@ public class IndentDetailController {
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions(":indentdetail:save")
+    //@RequiresPermissions("ylservice:indentdetail:save")
     public R save(@RequestBody IndentDetailEntity indentDetail){
 		indentDetailService.save(indentDetail);
 
@@ -68,7 +68,7 @@ public class IndentDetailController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions(":indentdetail:update")
+    //@RequiresPermissions("ylservice:indentdetail:update")
     public R update(@RequestBody IndentDetailEntity indentDetail){
 		indentDetailService.updateById(indentDetail);
 
@@ -79,7 +79,7 @@ public class IndentDetailController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions(":indentdetail:delete")
+    //@RequiresPermissions("ylservice:indentdetail:delete")
     public R delete(@RequestBody String[] deIndentIds){
 		indentDetailService.removeByIds(Arrays.asList(deIndentIds));
 

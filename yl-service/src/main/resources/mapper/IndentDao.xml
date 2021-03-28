@@ -17,6 +17,7 @@
         <result property="arrayTime" column="array_time"/>
         <result property="gmtCreate" column="gmt_create"/>
         <result property="gmtModified" column="gmt_modified"/>
+        <result property="isPayed" column="is_payed"/>
     </resultMap>
 
 

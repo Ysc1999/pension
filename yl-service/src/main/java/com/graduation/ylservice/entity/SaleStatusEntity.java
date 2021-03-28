@@ -10,9 +10,9 @@ import lombok.Data;
 /**
  * 
  * 
- * @author Yourself
+ * @author Ysc666
  * @email NOPE@gmail.com
- * @date 2021-03-27 22:58:44
+ * @date 2021-03-28 19:45:47
  */
 @Data
 @TableName("sale_status")
@@ -20,14 +20,10 @@ public class SaleStatusEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 菜品ID
+	 * 菜品售出状态主键，唯一标识
 	 */
 	@TableId
-	private String saleDishId;
-	/**
-	 * 菜品状态（0售完，1未售完）
-	 */
-	private Integer saleStatus;
+	private String saleStatusId;
 	/**
 	 * 逻辑删除，1删除，0未删除
 	 */
@@ -40,5 +36,9 @@ public class SaleStatusEntity implements Serializable {
 	 * 变更时间
 	 */
 	private Date gmtModified;
+	/**
+	 * 菜品售出状态（0售完，1未售完）
+	 */
+	private String saleStatus;
 
 }
