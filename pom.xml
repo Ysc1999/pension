@@ -26,6 +26,8 @@
   <modules>
     <module>renren-fast</module>
     <module>yl-service</module>
+    <module>yl-gateway</module>
+    <module>yl-common</module>
   </modules>
 
   <build>
