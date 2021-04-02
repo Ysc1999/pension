@@ -16,6 +16,7 @@
     <properties>
         <java.version>1.8</java.version>
         <swagger.version>2.7.0</swagger.version>
+        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -38,6 +39,12 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- 引用公共 -->
+        <dependency>
+            <groupId>com.graduation</groupId>
+            <artifactId>yl-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- 常用 -->
         <dependency>
@@ -83,7 +90,17 @@
             <version>4.4.13</version>
         </dependency>
     </dependencies>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>

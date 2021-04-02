@@ -1,0 +1,24 @@
+server:
+  port: 8300
+spring:
+  cloud:
+    nacos:
+      discovery:
+        username: gateway
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: yl_service  #yl_service服务
+          uri: lb://yl-service
+          predicates:
+            - Path=/api/ylservice/**
+          filters:
+            - RewritePath=/api/ylservice/(?<segment>.*),/ylservice/$\{segment}
+        - id: renren_route   #renren-fast的路由
+          uri: lb://renren-fast  #负载均衡(loadbalance)
+          predicates:
+            - Path=/api/**
+          filters:  #路径重写
+            - RewritePat=/api/(?<sehgment>.*),/renren-fast/$\{segment}
+  application:
+    name: gateway
