@@ -1,7 +1,6 @@
 package com.graduation.ylservice.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,7 +21,7 @@ public class IndentEntity implements Serializable {
 	/**
 	 * 订单ID
 	 */
-	@TableId
+	@TableId(value = "indent_id",type = IdType.ID_WORKER_STR)
 	private String indentId;
 	/**
 	 * 用户ID
@@ -51,6 +50,7 @@ public class IndentEntity implements Serializable {
 	/**
 	 * 逻辑删除，1删除，0未删除
 	 */
+	@TableLogic
 	private Integer isDelete;
 	/**
 	 * 付款时间
@@ -63,14 +63,27 @@ public class IndentEntity implements Serializable {
 	/**
 	 * 创建时间
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Date gmtCreate;
 	/**
 	 * 变更时间
 	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date gmtModified;
 	/**
 	 * 是否支付
 	 */
 	private Integer isPayed;
+	/**
+	 * 乐观锁
+	 */
+	@Version
+	private Integer version;
+	/**
+	 * 订单选定的菜单数量
+	 */
+	private Integer dishTotal;
 
+	public IndentEntity() {
+	}
 }
