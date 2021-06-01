@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.graduation.ylservice.entity.UserEntity;
 import com.graduation.ylservice.service.UserService;
@@ -33,7 +29,7 @@ public class UserController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     //@RequiresPermissions("ylservice:user:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = userService.queryPage(params);
@@ -45,7 +41,7 @@ public class UserController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{userId}")
+    @GetMapping("/info/{userId}")
     //@RequiresPermissions("ylservice:user:info")
     public R info(@PathVariable("userId") String userId){
 		UserEntity user = userService.getById(userId);
@@ -56,7 +52,7 @@ public class UserController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     //@RequiresPermissions("ylservice:user:save")
     public R save(@RequestBody UserEntity user){
 		userService.save(user);
@@ -67,7 +63,7 @@ public class UserController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     //@RequiresPermissions("ylservice:user:update")
     public R update(@RequestBody UserEntity user){
 		userService.updateById(user);
@@ -78,7 +74,7 @@ public class UserController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     //@RequiresPermissions("ylservice:user:delete")
     public R delete(@RequestBody String[] userIds){
 		userService.removeByIds(Arrays.asList(userIds));

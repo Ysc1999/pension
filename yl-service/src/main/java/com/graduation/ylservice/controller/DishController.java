@@ -5,11 +5,7 @@ import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.graduation.ylservice.entity.DishEntity;
 import com.graduation.ylservice.service.DishService;
@@ -33,7 +29,7 @@ public class DishController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     //@RequiresPermissions("ylservice:dish:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = dishService.queryPage(params);
@@ -45,7 +41,7 @@ public class DishController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{dishId}")
+    @GetMapping("/info/{dishId}")
     //@RequiresPermissions("ylservice:dish:info")
     public R info(@PathVariable("dishId") String dishId){
 		DishEntity dish = dishService.getById(dishId);
@@ -56,7 +52,7 @@ public class DishController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     //@RequiresPermissions("ylservice:dish:save")
     public R save(@RequestBody DishEntity dish){
 		dishService.save(dish);
@@ -67,7 +63,7 @@ public class DishController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     //@RequiresPermissions("ylservice:dish:update")
     public R update(@RequestBody DishEntity dish){
 		dishService.updateById(dish);
@@ -78,7 +74,7 @@ public class DishController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     //@RequiresPermissions("ylservice:dish:delete")
     public R delete(@RequestBody String[] dishIds){
 		dishService.removeByIds(Arrays.asList(dishIds));

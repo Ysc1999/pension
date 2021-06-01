@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.graduation.ylservice.utils.PageUtils;
 import com.graduation.ylservice.entity.UserEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface UserService extends IService<UserEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    boolean checkLogin(UserEntity user, HttpServletRequest request);
 }
 

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.graduation.ylservice.dao.IndentDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.graduation.ylservice.entity.IndentEntity" id="indentMap">
         <result property="indentId" column="indent_id"/>
         <result property="inUserId" column="in_user_id"/>
@@ -18,7 +18,21 @@
         <result property="gmtCreate" column="gmt_create"/>
         <result property="gmtModified" column="gmt_modified"/>
         <result property="isPayed" column="is_payed"/>
+        <result property="version" column="version"/>
     </resultMap>
 
+    <select id="selectIndentByParams" parameterType="com.graduation.ylservice.entity.query.IndentQuery" resultMap="indentMap">
+        select * from indent
+        where 1 = 1 and is_payed = #{indentQuery.indentStatus}
+        <if test="indentQuery.inUserName != null">
+            and in_user_name like concat('%',#{indentQuery.inUserName},'%')
+        </if>
+        <if test="indentQuery.beginTime != null">
+            and pay_time &gt;= #{indentQuery.beginTime}
+        </if>
+        <if test="indentQuery.endTime != null">
+            and pay_time &lt;= #{indentQuery.endTime}
+        </if>
+    </select>
 
 </mapper>

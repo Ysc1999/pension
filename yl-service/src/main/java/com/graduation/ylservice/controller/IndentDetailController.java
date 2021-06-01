@@ -1,14 +1,14 @@
 package com.graduation.ylservice.controller;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.graduation.ylservice.entity.DishEntity;
+import com.graduation.ylservice.entity.IndentEntity;
+import com.graduation.ylservice.entity.query.IndentDetailResult;
+import com.graduation.ylservice.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.graduation.ylservice.entity.IndentDetailEntity;
 import com.graduation.ylservice.service.IndentDetailService;
@@ -16,10 +16,7 @@ import com.graduation.ylservice.utils.PageUtils;
 import com.graduation.ylservice.utils.R;
 
 
-
 /**
- * 
- *
  * @author Ysc666
  * @email NOPE@gmail.com
  * @date 2021-03-28 19:45:47
@@ -30,12 +27,15 @@ public class IndentDetailController {
     @Autowired
     private IndentDetailService indentDetailService;
 
+    @Autowired
+    private DishService dishService;
+
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     //@RequiresPermissions("ylservice:indentdetail:list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = indentDetailService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -43,23 +43,22 @@ public class IndentDetailController {
 
 
     /**
-     * 信息
+     * 根据订单号找订单详情信息并返回
      */
-    @RequestMapping("/info/{deIndentId}")
+    @GetMapping("/info/{deIndentId}")
     //@RequiresPermissions("ylservice:indentdetail:info")
-    public R info(@PathVariable("deIndentId") String deIndentId){
-		IndentDetailEntity indentDetail = indentDetailService.getById(deIndentId);
-
-        return R.ok().put("indentDetail", indentDetail);
+    public R info(@PathVariable("deIndentId") String deIndentId) {
+        List<IndentDetailResult> list = indentDetailService.selectDetailById(deIndentId);
+        return R.ok().put("list", list);
     }
 
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     //@RequiresPermissions("ylservice:indentdetail:save")
-    public R save(@RequestBody IndentDetailEntity indentDetail){
-		indentDetailService.save(indentDetail);
+    public R save(@RequestBody IndentDetailEntity indentDetail) {
+        indentDetailService.save(indentDetail);
 
         return R.ok();
     }
@@ -67,23 +66,22 @@ public class IndentDetailController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     //@RequiresPermissions("ylservice:indentdetail:update")
-    public R update(@RequestBody IndentDetailEntity indentDetail){
-		indentDetailService.updateById(indentDetail);
+    public R update(@RequestBody IndentDetailEntity indentDetail) {
+        indentDetailService.updateById(indentDetail);
 
         return R.ok();
     }
 
     /**
-     * 删除
+     * 删除指定订单子表内容
      */
-    @RequestMapping("/delete")
+    @DeleteMapping("/deleteIndentDetailDish/{indentId}/{dishId}")
     //@RequiresPermissions("ylservice:indentdetail:delete")
-    public R delete(@RequestBody String[] deIndentIds){
-		indentDetailService.removeByIds(Arrays.asList(deIndentIds));
-
-        return R.ok();
+    public R deleteIndentDetailDish(@PathVariable("indentId") String indentId, @PathVariable("dishId") String dishId) {
+        return indentDetailService.removeByDishId(indentId, dishId) ? R.ok() : R.error();
     }
+
 
 }

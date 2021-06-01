@@ -1,11 +1,12 @@
 package com.graduation.ylservice.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+
+import static com.baomidou.mybatisplus.annotation.IdType.ID_WORKER_STR;
 
 /**
  * 
@@ -22,12 +23,16 @@ public class UserEntity implements Serializable {
 	/**
 	 * 用户ID
 	 */
-	@TableId
+	@TableId(value = "user_id",type = IdType.ID_WORKER_STR)
 	private String userId;
 	/**
 	 * 用户姓名
 	 */
 	private String userName;
+	/**
+	 * 用户密码
+	 */
+	private String userPassword;
 	/**
 	 * 用户年龄
 	 */
@@ -51,14 +56,17 @@ public class UserEntity implements Serializable {
 	/**
 	 * 逻辑删除，1删除，0未删除
 	 */
+	@TableLogic
 	private Integer isDelete;
 	/**
 	 * 创建时间
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Date gmtCreate;
 	/**
 	 * 更新时间
 	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date gmtModified;
 
 }

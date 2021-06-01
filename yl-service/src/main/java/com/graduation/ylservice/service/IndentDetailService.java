@@ -1,9 +1,11 @@
 package com.graduation.ylservice.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.graduation.ylservice.entity.query.IndentDetailResult;
 import com.graduation.ylservice.utils.PageUtils;
 import com.graduation.ylservice.entity.IndentDetailEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,9 @@ import java.util.Map;
 public interface IndentDetailService extends IService<IndentDetailEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<IndentDetailResult> selectDetailById(String deIndentId);
+
+    boolean removeByDishId(String indentId, String dishId);
 }
 

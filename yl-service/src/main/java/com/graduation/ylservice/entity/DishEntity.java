@@ -1,7 +1,6 @@
 package com.graduation.ylservice.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,7 +21,7 @@ public class DishEntity implements Serializable {
 	/**
 	 * 菜品ID
 	 */
-	@TableId
+	@TableId(value = "dish_id",type = IdType.ID_WORKER_STR)
 	private String dishId;
 	/**
 	 * 菜品种类名称
@@ -47,14 +46,17 @@ public class DishEntity implements Serializable {
 	/**
 	 * 逻辑删除，1删除，0未删除
 	 */
+	@TableLogic
 	private Integer isDelete;
 	/**
 	 * 创建时间
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Date gmtCreate;
 	/**
 	 * 变更时间
 	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date gmtModified;
 	/**
 	 * 菜品售出状态
