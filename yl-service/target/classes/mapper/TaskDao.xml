@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.graduation.ylservice.dao.TaskDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.graduation.ylservice.entity.TaskEntity" id="taskMap">
+        <result property="pkTaskId" column="PK_TASK_ID"/>
+        <result property="nkTaskNo" column="NK_TASK_NO"/>
+        <result property="fkRiderId" column="FK_RIDER_ID"/>
+        <result property="fkRiderName" column="FK_RIDER_NAME"/>
+        <result property="fkRiderNo" column="FK_RIDER_NO"/>
+        <result property="fkRiderPhone" column="FK_RIDER_PHONE"/>
+        <result property="fkOrderId" column="FK_ORDER_ID"/>
+        <result property="fkOrderNo" column="FK_ORDER_NO"/>
+        <result property="fkDishId" column="FK_DISH_ID"/>
+        <result property="fkDishNo" column="FK_DISH_NO"/>
+        <result property="fkDishName" column="FK_DISH_NAME"/>
+        <result property="taskStatus" column="TASK_STATUS"/>
+        <result property="deleteFlag" column="DELETE_FLAG"/>
+        <result property="gmtCreate" column="GMT_CREATE"/>
+        <result property="gmtModified" column="GMT_MODIFIED"/>
+    </resultMap>
+
+
+</mapper>
