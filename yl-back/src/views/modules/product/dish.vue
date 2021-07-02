@@ -1,0 +1,238 @@
+<template>
+  <div class="mod-config">
+    <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
+      <el-form-item>
+        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="getDataList()">查询</el-button>
+        <el-button v-if="isAuth('ylservice:dish:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('ylservice:dish:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+      </el-form-item>
+    </el-form>
+    <el-table
+      :data="dataList"
+      border
+      v-loading="dataListLoading"
+      @selection-change="selectionChangeHandle"
+      style="width: 100%;">
+      <el-table-column
+        type="selection"
+        header-align="center"
+        align="center"
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="dishId"
+        header-align="center"
+        align="center"
+        label="菜品ID">
+      </el-table-column>
+      <el-table-column
+        prop="dishKindName"
+        header-align="center"
+        align="center"
+        label="菜品种类名称">
+      </el-table-column>
+      <el-table-column
+        prop="dishName"
+        header-align="center"
+        align="center"
+        label="菜品名称">
+      </el-table-column>
+      <el-table-column
+        prop="dishPrice"
+        header-align="center"
+        align="center"
+        label="菜品单价">
+      </el-table-column>
+      <el-table-column
+        header-align="center"
+        align="center"
+        label="菜品图片">
+        <template slot-scope="scope">
+          <img :src="scope.row.dishPicture" alt="" width="80px" height="80px">
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="description"
+        header-align="center"
+        align="center"
+        label="详情描述">
+      </el-table-column>
+      <!--<el-table-column
+        prop="isDelete"
+        header-align="center"
+        align="center"
+        label="逻辑删除，1删除，0未删除">
+      </el-table-column>-->
+      <el-table-column
+        prop="gmtCreate"
+        header-align="center"
+        align="center"
+        label="创建时间">
+      </el-table-column>
+      <el-table-column
+        prop="gmtModified"
+        header-align="center"
+        align="center"
+        label="变更时间">
+      </el-table-column>
+      <!--<el-table-column
+        prop="dishSaleStatus"
+        header-align="center"
+        align="center"
+        label="菜品售出状态">
+      </el-table-column>
+      <el-table-column
+        prop="dishStatus"
+        header-align="center"
+        align="center"
+        label="菜品上架状态">
+      </el-table-column>-->
+      <!--<el-table-column
+        fixed="right"
+        header-align="center"
+        align="center"
+        label="数量">
+        <template slot-scope="scope">
+          <el-input-number :step="1" :min="1":max="99" v-model="scope.row.num" ></el-input-number>
+        </template>
+      </el-table-column>-->
+      <el-table-column
+        fixed="right"
+        header-align="center"
+        align="center"
+        width="150"
+        label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.dishId)">修改</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.dishId)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      @size-change="sizeChangeHandle"
+      @current-change="currentChangeHandle"
+      :current-page="pageIndex"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="pageSize"
+      :total="totalPage"
+      layout="total, sizes, prev, pager, next, jumper">
+    </el-pagination>
+    <!-- 弹窗, 新增 / 修改 -->
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+  </div>
+</template>
+
+<script>
+  import AddOrUpdate from './dish-add-or-update'
+  export default {
+    data () {
+      return {
+        dataForm: {
+          key: ''
+        },
+        dataList: [],
+        pageIndex: 1,
+        pageSize: 10,
+        totalPage: 0,
+        dataListLoading: false,
+        dataListSelections: [],
+        addOrUpdateVisible: false
+      }
+    },
+    components: {
+      AddOrUpdate
+    },
+    activated () {
+      this.getDataList()
+    },
+    methods: {
+      // 获取数据列表
+      getDataList () {
+        this.dataListLoading = true
+        this.$http({
+          url: this.$http.adornUrl('/ylservice/dish/list'),
+          method: 'get',
+          params: this.$http.adornParams({
+            'page': this.pageIndex,
+            'limit': this.pageSize,
+            'key': this.dataForm.key
+          })
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.dataList = data.page.list
+            this.totalPage = data.page.totalCount
+          } else {
+            this.dataList = []
+            this.totalPage = 0
+          }
+          this.dataListLoading = false
+          this.dataList.map(item => {
+            this.$set(item,'num',1);
+          });
+          /*console.log(this.dataList.length)
+          for(let temp = 0; temp < this.dataList.length; temp++){
+            this.dataList[temp].num = 1
+          }*/
+          //this.dataList[0].num = null
+
+
+        })
+      },
+      // 每页数
+      sizeChangeHandle (val) {
+        this.pageSize = val
+        this.pageIndex = 1
+        this.getDataList()
+      },
+      // 当前页
+      currentChangeHandle (val) {
+        this.pageIndex = val
+        this.getDataList()
+      },
+      // 多选
+      selectionChangeHandle (val) {
+        this.dataListSelections = val
+      },
+      // 新增 / 修改
+      addOrUpdateHandle (id) {
+        this.addOrUpdateVisible = true
+        this.$nextTick(() => {
+          this.$refs.addOrUpdate.init(id)
+        })
+      },
+      // 删除
+      deleteHandle (id) {
+        var ids = id ? [id] : this.dataListSelections.map(item => {
+          return item.dishId
+        })
+        this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http({
+            url: this.$http.adornUrl('/ylservice/dish/delete'),
+            method: 'post',
+            data: this.$http.adornData(ids, false)
+          }).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        })
+      }
+    }
+  }
+</script>
